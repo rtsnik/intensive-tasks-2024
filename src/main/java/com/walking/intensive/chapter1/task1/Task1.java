@@ -15,35 +15,35 @@ package com.walking.intensive.chapter1.task1;
 public class Task1 {
     public static void main(String[] args) {
 //        Для собственных проверок можете делать любые изменения в этом методе
-        int age = 0;
-        for (int i = -10; i <= 200; i++) {
+        for (int i = -10; i <= 128; i++) {
             System.out.println(getAgeString(i));
         }
     }
 
     static String getAgeString(int age) {
-        String result;
-        int remainder = 0;
-        if (age >= 0) {
-            if (age == 0) {
-                result = "Вам " + age + " лет";
-            } else {
-                remainder = age - age/100*100; //отсекаем 100-ые порядки
-                if (remainder < 21 && remainder > 4) {
-                    result = "Вам " + age + " лет";
-                } else {
-                    remainder = age - age/10*10; //отсекаем 10-ые порядки
-                    if(remainder == 1) {
-                        result = "Вам " + age + " год";
-                    } else if (remainder == 2 || remainder == 3 || remainder == 4) {
-                        result = "Вам " + age + " года";
-                    } else
-                        result = "Вам " + age + " лет";
-                }
-            }
-        } else
-            result = "Некорректный ввод";
+        String ageString;
+        int remainder;
 
-        return result;
+        if (age < 0 || age > 127) {
+            ageString = "Некорректный ввод";
+            return ageString;
+        }
+
+        remainder = age % 100; //отсекаем 100-ые порядки
+        if (remainder < 15 && remainder > 10) { //исключительно для "Вам 11, 12, 13, 14 лет"
+            ageString = "Вам " + age + " лет";
+            return ageString;
+        }
+
+        remainder = age % 10; //отсекаем 10-ые порядки
+        if (remainder == 1) {
+            ageString = "Вам " + age + " год";
+        } else if (remainder == 2 || remainder == 3 || remainder == 4) {
+            ageString = "Вам " + age + " года";
+        } else {
+            ageString = "Вам " + age + " лет";
+        }
+
+        return ageString;
     }
 }
