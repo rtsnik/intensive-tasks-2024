@@ -16,13 +16,34 @@ public class Task1 {
     public static void main(String[] args) {
 //        Для собственных проверок можете делать любые изменения в этом методе
         int age = 0;
-
-        System.out.println(getAgeString(age));
+        for (int i = -10; i <= 200; i++) {
+            System.out.println(getAgeString(i));
+        }
     }
 
     static String getAgeString(int age) {
-//        Место для вашего кода
+        String result;
+        int remainder = 0;
+        if (age >= 0) {
+            if (age == 0) {
+                result = "Вам " + age + " лет";
+            } else {
+                remainder = age - age/100*100; //отсекаем 100-ые порядки
+                if (remainder < 21 && remainder > 4) {
+                    result = "Вам " + age + " лет";
+                } else {
+                    remainder = age - age/10*10; //отсекаем 10-ые порядки
+                    if(remainder == 1) {
+                        result = "Вам " + age + " год";
+                    } else if (remainder == 2 || remainder == 3 || remainder == 4) {
+                        result = "Вам " + age + " года";
+                    } else
+                        result = "Вам " + age + " лет";
+                }
+            }
+        } else
+            result = "Некорректный ввод";
 
-        return null; // Заглушка. При реализации - удалить
+        return result;
     }
 }
