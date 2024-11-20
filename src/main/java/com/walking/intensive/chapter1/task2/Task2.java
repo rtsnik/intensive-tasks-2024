@@ -36,9 +36,27 @@ public class Task2 {
 //        Для собственных проверок можете делать любые изменения в этом методе
     }
 
-    static String getFlatLocation(int floorAmount, int entranceAmount, int flatNumber) {
-        //        Место для вашего кода
+    static String getFlatLocation(int floorAmount, int entranceAmount, int flatNumber) {//(Этаж,Подъезд,Квартира)
+        String flatLocation = "0";
+        String incorrectInputData = "Некорректные входные данные";
+        String unknownFlat = "Такой квартиры не существует";
+        int currentFloor;
+        int currentEntrance;
 
-        return null; // Заглушка. При реализации - удалить
+        //Проверка входных данных
+        if (floorAmount <= 0 || entranceAmount <= 0 || flatNumber <=0) {
+            return incorrectInputData;
+        }
+        //Проверка вхождения номера квартиры в диапазон "существующих"
+        if (flatNumber > 4*floorAmount*entranceAmount) {
+            return unknownFlat;
+        }
+
+        currentEntrance = flatNumber%(floorAmount*4) == 0 ?
+                            flatNumber/(floorAmount*4):
+                            flatNumber/(floorAmount*4) + 1; // 0-20 = 1; 21-40 = 2 / (5*4)
+        currentFloor = flatNumber - floorAmount*4;
+
+        return flatLocation;
     }
 }
