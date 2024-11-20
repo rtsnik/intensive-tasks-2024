@@ -33,10 +33,12 @@ package com.walking.intensive.chapter1.task2;
  */
 public class Task2 {
     public static void main(String[] args) {
-//        Для собственных проверок можете делать любые изменения в этом методе
+        for(int i = -10; i <= 100; i++) {
+            System.out.println(getFlatLocation(5, 4, i));
+        }
     }
 
-    static String getFlatLocation(int floorAmount, int entranceAmount, int flatNumber) {//(Этаж,Подъезд,Квартира)
+    static String getFlatLocation(int floorAmount, int entranceAmount, int flatNumber) {
         String flatLocation = "0";
         String incorrectInputData = "Некорректные входные данные";
         String unknownFlat = "Такой квартиры не существует";
@@ -52,10 +54,22 @@ public class Task2 {
             return unknownFlat;
         }
 
+        //Текущий подъезд
         currentEntrance = flatNumber%(floorAmount*4) == 0 ?
                             flatNumber/(floorAmount*4):
                             flatNumber/(floorAmount*4) + 1; // 0-20 = 1; 21-40 = 2 / (5*4)
-        currentFloor = flatNumber - floorAmount*4;
+        //Текущий этаж
+        currentFloor = (flatNumber - floorAmount*4)/4 + 1;
+
+        //1 кв – 1 подъезд, 1 этаж, слева от лифта, влево
+        flatLocation = "" + flatNumber + " кв - " + currentEntrance + " подъезд, " + currentFloor +  " этаж, ";
+
+        switch ( flatNumber%4) {
+            case 1: flatLocation = flatLocation + "слева от лифта, влево"; break;
+            case 2: flatLocation = flatLocation + "слева от лифта, вправо"; break;
+            case 3: flatLocation = flatLocation + "справа от лифта, влево"; break;
+            case 0: flatLocation = flatLocation + "справа от лифта, вправо"; break;
+        }
 
         return flatLocation;
     }
