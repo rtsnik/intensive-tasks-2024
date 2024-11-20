@@ -33,7 +33,7 @@ package com.walking.intensive.chapter1.task2;
  */
 public class Task2 {
     public static void main(String[] args) {
-        for(int i = -10; i <= 100; i++) {
+        for (int i = -10; i <= 100; i++) {
             System.out.println(getFlatLocation(5, 4, i));
         }
     }
@@ -46,29 +46,37 @@ public class Task2 {
         int currentEntrance;
 
         //Проверка входных данных
-        if (floorAmount <= 0 || entranceAmount <= 0 || flatNumber <=0) {
+        if (floorAmount <= 0 || entranceAmount <= 0 || flatNumber <= 0) {
             return incorrectInputData;
         }
         //Проверка вхождения номера квартиры в диапазон "существующих"
-        if (flatNumber > 4*floorAmount*entranceAmount) {
+        if (flatNumber > 4 * floorAmount * entranceAmount) {
             return unknownFlat;
         }
 
         //Текущий подъезд
-        currentEntrance = flatNumber%(floorAmount*4) == 0 ?
-                            flatNumber/(floorAmount*4):
-                            flatNumber/(floorAmount*4) + 1; // 0-20 = 1; 21-40 = 2 / (5*4)
+        currentEntrance = flatNumber % (floorAmount * 4) == 0 ?
+                flatNumber / (floorAmount * 4) :
+                flatNumber / (floorAmount * 4) + 1;
         //Текущий этаж
-        currentFloor = (flatNumber - floorAmount*4)/4 + 1;
+        currentFloor = (flatNumber - (currentEntrance - 1) * floorAmount * 4 - 1) / 4 + 1;
 
         //1 кв – 1 подъезд, 1 этаж, слева от лифта, влево
-        flatLocation = "" + flatNumber + " кв - " + currentEntrance + " подъезд, " + currentFloor +  " этаж, ";
+        flatLocation = flatNumber + " кв - " + currentEntrance + " подъезд, " + currentFloor + " этаж, ";
 
-        switch ( flatNumber%4) {
-            case 1: flatLocation = flatLocation + "слева от лифта, влево"; break;
-            case 2: flatLocation = flatLocation + "слева от лифта, вправо"; break;
-            case 3: flatLocation = flatLocation + "справа от лифта, влево"; break;
-            case 0: flatLocation = flatLocation + "справа от лифта, вправо"; break;
+        switch (flatNumber % 4) {
+            case 1:
+                flatLocation = flatLocation + "слева от лифта, влево";
+                break;
+            case 2:
+                flatLocation = flatLocation + "слева от лифта, вправо";
+                break;
+            case 3:
+                flatLocation = flatLocation + "справа от лифта, влево";
+                break;
+            case 0:
+                flatLocation = flatLocation + "справа от лифта, вправо";
+                break;
         }
 
         return flatLocation;
