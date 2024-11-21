@@ -39,11 +39,8 @@ public class Task2 {
     }
 
     static String getFlatLocation(int floorAmount, int entranceAmount, int flatNumber) {
-        String flatLocation = "0";
         String incorrectInputData = "Некорректные входные данные";
         String unknownFlat = "Такой квартиры не существует";
-        int currentFloor;
-        int currentEntrance;
 
         //Проверка входных данных
         if (floorAmount <= 0 || entranceAmount <= 0 || flatNumber <= 0) {
@@ -55,29 +52,22 @@ public class Task2 {
         }
 
         //Текущий подъезд
-        currentEntrance = flatNumber % (floorAmount * 4) == 0 ?
-                flatNumber / (floorAmount * 4) :
-                flatNumber / (floorAmount * 4) + 1;
+        int currentEntrance = flatNumber % (floorAmount * 4) == 0
+                ? flatNumber / (floorAmount * 4)
+                : flatNumber / (floorAmount * 4) + 1;
         //Текущий этаж
-        currentFloor = (flatNumber - (currentEntrance - 1) * floorAmount * 4 - 1) / 4 + 1;
+        int currentFloor = (flatNumber - (currentEntrance - 1) * floorAmount * 4 - 1) / 4 + 1;
 
         //1 кв – 1 подъезд, 1 этаж, слева от лифта, влево
-        flatLocation = flatNumber + " кв - " + currentEntrance + " подъезд, " + currentFloor + " этаж, ";
+        String flatLocation = flatNumber + " кв - " + currentEntrance + " подъезд, " + currentFloor + " этаж, ";
 
-        switch (flatNumber % 4) {
-            case 1:
-                flatLocation = flatLocation + "слева от лифта, влево";
-                break;
-            case 2:
-                flatLocation = flatLocation + "слева от лифта, вправо";
-                break;
-            case 3:
-                flatLocation = flatLocation + "справа от лифта, влево";
-                break;
-            case 0:
-                flatLocation = flatLocation + "справа от лифта, вправо";
-                break;
-        }
+        flatLocation = switch (flatNumber % 4) {
+            case 1 -> flatLocation + "слева от лифта, влево";
+            case 2 -> flatLocation + "слева от лифта, вправо";
+            case 3 -> flatLocation + "справа от лифта, влево";
+            case 0 -> flatLocation + "справа от лифта, вправо";
+            default -> unknownFlat;
+        };
 
         return flatLocation;
     }
