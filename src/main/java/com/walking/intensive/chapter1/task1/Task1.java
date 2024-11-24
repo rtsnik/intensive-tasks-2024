@@ -21,29 +21,20 @@ public class Task1 {
     }
 
     static String getAgeString(int age) {
-        String ageString;
-        int remainder;
-
         if (age < 0 || age > 127) {
-            ageString = "Некорректный ввод";
-            return ageString;
+            return "Некорректный ввод";
         }
 
-        remainder = age % 100; //отсекаем 100-ые порядки
-        if (remainder < 15 && remainder > 10) { //исключительно для "Вам 11, 12, 13, 14 лет"
-            ageString = "Вам " + age + " лет";
-            return ageString;
+        int remainder = age % 100; //отсекаем 100
+        if ((remainder > 4 && remainder < 21) || remainder % 10 > 4 || remainder % 10 == 0) {
+            return "Вам " + age + " лет";
         }
 
         remainder = age % 10; //отсекаем 10-ые порядки
         if (remainder == 1) {
-            ageString = "Вам " + age + " год";
-        } else if (remainder == 2 || remainder == 3 || remainder == 4) {
-            ageString = "Вам " + age + " года";
+            return "Вам " + age + " год";
         } else {
-            ageString = "Вам " + age + " лет";
+            return "Вам " + age + " года";
         }
-
-        return ageString;
     }
 }
