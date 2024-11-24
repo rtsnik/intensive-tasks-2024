@@ -26,26 +26,13 @@ package com.walking.intensive.chapter1.task3;
 public class Task3 {
     public static void main(String[] args) {
 
-        int[] years = {1600, 1700, 1800, 1900, 2000, 2020, 2021, 2022, 2023, 2024, 2100, 2400};
-        for (int year:years) {
-            System.out.println("Год " + year + " является высокосным? = " + (isLeap(year) ? "Да": "Нет"));
+        int[] years = {1500, 1600, 1700, 1800, 1900, 2000, 2020, 2021, 2022, 2023, 2024, 2100, 2400};
+        for (int year : years) {
+            System.out.println("Год " + year + " является высокосным? = " + (isLeap(year) ? "Да" : "Нет"));
         }
     }
 
     static boolean isLeap(int year) {
-
-        if(year < 1600) {
-            return false;
-        }
-
-        if(year % 400 == 0) {
-            return true;
-        }
-
-        if(year % 100 == 0) {
-            return false;
-        }
-
-        return year % 4 == 0;
+        return !(year < 1600) && ((year % 100 != 0 || year % 400 == 0) && year % 4 == 0);
     }
 }
