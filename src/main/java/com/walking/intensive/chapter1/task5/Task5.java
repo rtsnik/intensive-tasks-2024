@@ -174,10 +174,10 @@ public class Task5 {
      * <p>Если входные данные некорректны - метод должен возвращать -1.
      */
     static double getAreaByHeron(double a, double b, double c) {
-
-        if (a <= 0.0 || b <= 0.0 || c <= 0.0 || (a + b) <= c || (a + c) <= b || (b + c) <= a) {
+        if (checkArguments(a, b, c)) {
             return -1;
         }
+
         double p = 0.5 * (a + b + c);
         return sqrt(p * (p - a) * (p - b) * (p - c));
     }
@@ -190,9 +190,10 @@ public class Task5 {
      * <p>Если входные данные некорректны - метод должен возвращать пустой массив нулевой длины.
      */
     static double[] getHeights(double a, double b, double c) {
-        if (a <= 0.0 || b <= 0.0 || c <= 0.0 || (a + b) <= c || (a + c) <= b || (b + c) <= a) {
+        if (checkArguments(a, b, c)) {
             return new double[]{};
         }
+
         double p = (a + b + c) / 2;
         double rootOfSemiPerimeter = sqrt(p * (p - a) * (p - b) * (p - c));
         double hA = 2 / a * rootOfSemiPerimeter;
@@ -211,9 +212,10 @@ public class Task5 {
      * <p>Если входные данные некорректны - метод должен возвращать пустой массив нулевой длины.
      */
     static double[] getMedians(double a, double b, double c) {
-        if (a <= 0.0 || b <= 0.0 || c <= 0.0 || (a + b) <= c || (a + c) <= b || (b + c) <= a) {
+        if (checkArguments(a, b, c)) {
             return new double[]{};
         }
+
         double mA = 1.0 / 2 * sqrt(2 * c * c + 2 * b * b - a * a);
         double mB = 1.0 / 2 * sqrt(2 * c * c + 2 * a * a - b * b);
         double mC = 1.0 / 2 * sqrt(2 * a * a + 2 * b * b - c * c);
@@ -230,9 +232,10 @@ public class Task5 {
      * <p>Если входные данные некорректны - метод должен возвращать пустой массив нулевой длины.
      */
     static double[] getBisectors(double a, double b, double c) {
-        if (a <= 0.0 || b <= 0.0 || c <= 0.0 || (a + b) <= c || (a + c) <= b || (b + c) <= a) {
+        if (checkArguments(a, b, c)) {
             return new double[]{};
         }
+
         double bA = sqrt(b * c * (b * b + 2 * b * c + c * c - a * a)) / (b + c);
         double bB = sqrt(a * c * (a * a + 2 * a * c + c * c - b * b)) / (a + c);
         double bC = sqrt(b * a * (b * b + 2 * b * a + a * a - c * c)) / (b + a);
@@ -249,9 +252,10 @@ public class Task5 {
      * <p>Если входные данные некорректны - метод должен возвращать пустой массив нулевой длины.
      */
     static double[] getAngles(double a, double b, double c) {
-        if (a <= 0.0 || b <= 0.0 || c <= 0.0 || (a + b) <= c || (a + c) <= b || (b + c) <= a) {
+        if (checkArguments(a, b, c)) {
             return new double[]{};
         }
+
         double anglesAlfa = acos((b * b + c * c - a * a) / (2 * b * c)) * 180 / PI;
         double anglesBeta = acos((a * a + c * c - b * b) / (2 * a * c)) * 180 / PI;
         double anglesGamma = acos((a * a + b * b - c * c) / (2 * b * a)) * 180 / PI;
@@ -268,9 +272,10 @@ public class Task5 {
      * <p>Если входные данные некорректны - метод должен возвращать -1.
      */
     static double getInscribedCircleRadius(double a, double b, double c) {
-        if (a <= 0.0 || b <= 0.0 || c <= 0.0 || (a + b) <= c || (a + c) <= b || (b + c) <= a) {
+        if (checkArguments(a, b, c)) {
             return -1;
         }
+
         double semiPerimeter = (a + b + c) / 2;
         return getAreaByHeron(a, b, c) / semiPerimeter;
     }
@@ -283,9 +288,10 @@ public class Task5 {
      * <p>Если входные данные некорректны - метод должен возвращать -1.
      */
     static double getCircumradius(double a, double b, double c) {
-        if (a <= 0.0 || b <= 0.0 || c <= 0.0 || (a + b) <= c || (a + c) <= b || (b + c) <= a) {
+        if (checkArguments(a, b, c)) {
             return -1;
         }
+
         return (a * b * c) / (4 * getAreaByHeron(a, b, c));
     }
 
@@ -304,11 +310,16 @@ public class Task5 {
      * <p>Если входные данные некорректны - метод должен возвращать -1.
      */
     static double getAreaAdvanced(double a, double b, double c) {
-        if (a <= 0.0 || b <= 0.0 || c <= 0.0 || (a + b) <= c || (a + c) <= b || (b + c) <= a) {
+        if (checkArguments(a, b, c)) {
             return -1;
         }
+
         double cosAlfa = (b * b + c * c - a * a) / (2 * b * c);
         double sinAlfa = sqrt(1 - cosAlfa * cosAlfa); //S = 1/2 * b * c * sinAlfa - угол между b и с, напротив a
         return 0.5 * b * c * sinAlfa;
+    }
+
+    static boolean checkArguments(double a, double b, double c) {
+        return a <= 0.0 || b <= 0.0 || c <= 0.0 || (a + b) <= c || (a + c) <= b || (b + c) <= a;
     }
 }
