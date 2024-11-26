@@ -33,8 +33,8 @@ public class Task1 {
         remainder = age % 10; //отсекаем 10-ые порядки
         if (remainder == 1) {
             return "Вам " + age + " год";
-        } else {
-            return "Вам " + age + " года";
         }
+
+        return "Вам " + age + " года";
     }
 }
